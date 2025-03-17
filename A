@@ -1,0 +1,8 @@
+def fetch_m2_one_day(day):
+    all_data = pd.read_csv("crypto_data.csv", parse_dates=["Date"])
+    d = pd.to_datetime(day)
+    # Najdeme řádek s nejbližším datem
+    idx = (all_data["Date"] - d).abs().idxmin()
+    sub = all_data.loc[[idx]]
+    # Ověříme, zda je datum rozumné – případně můžeš přidat další kontrolu
+    return sub[["Date", "M2"]].copy()
